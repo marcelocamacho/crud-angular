@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from '../model/course';
 import { CoursesService } from '../services/courses.service';
-import { Observable } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-courses',
@@ -11,11 +12,17 @@ import { Observable } from 'rxjs';
 })
 export class CoursesComponent implements OnInit {
 
-  courses: Observable<Course[]>;
+  courses$: Observable<Course[]>;
   displayedColumns = ['name','category'];
 
   constructor(private courseService: CoursesService) {
-    this.courses = this.courseService.list();
+    this.courses$ = this.courseService.list().pipe(
+      catchError(error =>{
+          console.log(error)
+          return of([])
+        }
+    )
+    );
   }
   ngOnInit(): void {
 
