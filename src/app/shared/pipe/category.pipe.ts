@@ -6,8 +6,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CategoryPipe implements PipeTransform {
 
-  transform(value: unknown, ...args: unknown[]): unknown {
-    return null;
+  transform(value: string): string {
+    switch(value.toLowerCase()){
+      case 'frontend': return 'code';
+      case 'backend': return 'computer';
+    }
+    return 'code';
   }
 
 }
