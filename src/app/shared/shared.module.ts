@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ErrorDialogComponent } from './componenents/error-dialog/error-dialog.component';
 import { AppMaterialModule } from './app-material/app-material.module';
 import { CategoryPipe } from './pipe/category.pipe';
+import {MatCardModule} from '@angular/material/card';
 
 
 
@@ -17,7 +18,8 @@ import { CategoryPipe } from './pipe/category.pipe';
   ],
   exports:[
     ErrorDialogComponent,
-    CategoryPipe
+    CategoryPipe,
+    MatCardModule
   ]
 })
 export class SharedModule { }
