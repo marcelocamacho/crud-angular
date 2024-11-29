@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CoursesService } from '../services/courses.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Location } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-course-form',
@@ -16,7 +18,9 @@ export class CourseFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private service: CoursesService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private location: Location,
+    private router: Router
   ){
     this.form = this.formBuilder.group({
       name: [null],
@@ -30,7 +34,10 @@ export class CourseFormComponent implements OnInit {
 
   onSubmit(){
     this.service.save(this.form.value).subscribe({
-      next: (result) => console.log(result),
+      next: (result) => {
+        this.openSnackBar("Curso "+result.name+" cadastrado com sucesso","Ok");
+        this.router.navigate(['courses']);
+      },
       error : () => this.openSnackBar("Erro ao salvar o curso","Ok")
     }
     );
@@ -38,6 +45,7 @@ export class CourseFormComponent implements OnInit {
 
   onCancel(){
     this.form.reset;
+    this.location.back();
   }
 
   openSnackBar(message: string, action: string){
