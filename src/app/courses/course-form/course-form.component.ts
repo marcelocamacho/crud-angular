@@ -13,8 +13,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CourseFormComponent implements OnInit {
 
-  form: FormGroup;
-
+  //form: FormGroup;
+  form = this.formBuilder.group({
+    name: [''],
+    category: ['']
+  });
   constructor(
     private formBuilder: FormBuilder,
     private service: CoursesService,
@@ -22,10 +25,10 @@ export class CourseFormComponent implements OnInit {
     private location: Location,
     private router: Router
   ){
-    this.form = this.formBuilder.group({
-      name: [null],
-      category: [null]
-    });
+    // this.form = this.formBuilder.group({
+    //   name: [''],
+    //   category: ['']
+    // });
   }
 
   ngOnInit(): void {
