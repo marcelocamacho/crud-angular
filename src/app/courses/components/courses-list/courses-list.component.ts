@@ -13,6 +13,7 @@ export class CoursesListComponent implements OnInit{
 
   @Input() courses: Course[] = [];
   @Output() add = new EventEmitter(false);
+  @Output() edit = new EventEmitter(false);
   displayedColumns = ['name','category','actions'];
 
 
@@ -29,5 +30,9 @@ export class CoursesListComponent implements OnInit{
     this.add.emit(true);
     //this.router.navigate(['new'],{relativeTo: this.route});
     //this.router.navigate(['courses/new']);
+  }
+
+  onEdit(course:Course){
+    this.edit.emit(course);
   }
 }

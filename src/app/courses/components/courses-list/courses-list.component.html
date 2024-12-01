@@ -1,11 +1,5 @@
 <mat-table [dataSource]="courses">
 
-  <!-- <ng-container matColumnDef="_id">
-    <th mat-header-cell *matHeaderCellDef> Id </th>
-    <td mat-cell *matCellDef="let course"> {{course._id}} </td>
-  </ng-container> -->
-
-
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef> Curso </mat-header-cell>
     <mat-cell *matCellDef="let course"> {{course.name}} </mat-cell>
@@ -28,7 +22,7 @@
     <mat-cell *matCellDef="let course" class="action-column">
 
       <button mat-icon-button color="primary" aria-label="Editar">
-        <mat-icon>edit</mat-icon>
+        <mat-icon (click)="onEdit(course)">edit</mat-icon>
       </button>
 
       <button mat-icon-button color="warn" aria-label="Remover">
@@ -40,4 +34,5 @@
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
 </mat-table>
