@@ -4,13 +4,15 @@ import { ErrorDialogComponent } from './componenents/error-dialog/error-dialog.c
 import { AppMaterialModule } from './app-material/app-material.module';
 import { CategoryPipe } from './pipe/category.pipe';
 import {MatCardModule} from '@angular/material/card';
+import { ConfirmationDialogComponent } from './componenents/confirmation-dialog/confirmation-dialog.component';
 
 
 
 @NgModule({
   declarations: [
     ErrorDialogComponent,
-    CategoryPipe
+    CategoryPipe,
+    ConfirmationDialogComponent
   ],
   imports: [
     AppMaterialModule,
