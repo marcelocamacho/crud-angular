@@ -2,8 +2,9 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NonNullableFormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CoursesService } from '../../services/courses.service';
+import { Course } from '../../model/course';
 
 
 @Component({
@@ -16,6 +17,7 @@ export class CourseFormComponent implements OnInit {
 
   //form: FormGroup;
   form = this.formBuilder.group({
+    _id:[''],
     name: [''],
     category: ['']
   });
@@ -24,7 +26,8 @@ export class CourseFormComponent implements OnInit {
     private service: CoursesService,
     private _snackBar: MatSnackBar,
     private location: Location,
-    private router: Router
+    private router: Router,
+    private activateRoute: ActivatedRoute
   ){
     // this.form = this.formBuilder.group({
     //   name: [''],
@@ -33,7 +36,12 @@ export class CourseFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    const course: Course = this.activateRoute.snapshot.data['course'];
+    this.form.setValue({
+      _id:course._id,
+      name: course.name,
+      category: course.category
+    });
   }
 
   onSubmit(){
