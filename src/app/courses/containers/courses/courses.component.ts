@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Course } from '../../model/course';
 import { CoursesService } from '../../services/courses.service';
 import { ErrorDialogComponent } from '../../../shared/componenents/error-dialog/error-dialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-courses',
@@ -22,7 +24,8 @@ export class CoursesComponent implements OnInit {
     private courseService: CoursesService,
     public dialog: MatDialog,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) {
     this.courses$ = this.courseService.list().pipe(
       catchError(error =>{
@@ -49,6 +52,31 @@ export class CoursesComponent implements OnInit {
 
   onEdit(course: Course){
     this.router.navigate(['edit', course._id],{relativeTo: this.route});
+  }
+
+  refresh(){
+    this.courses$ = this.courseService.list().pipe(
+      catchError(error =>{
+        console.log(error);
+        this.onError('Erro ao carregar os cursos');
+          return of([])
+        }
+    )
+    );
+  }
+
+  onRemove(course: Course){
+    this.courseService.delete(course._id).subscribe(
+      () => {
+        this.refresh();
+        this.snackBar.open('Curso removido com sucesso!', 'X',{
+          duration: 5000,
+          verticalPosition: 'top',
+          horizontalPosition:'center'
+        });
+      }
+    );
+
   }
 
 }
