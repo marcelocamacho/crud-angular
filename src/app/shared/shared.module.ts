@@ -5,6 +5,8 @@ import { AppMaterialModule } from './app-material/app-material.module';
 import { CategoryPipe } from './pipe/category.pipe';
 import {MatCardModule} from '@angular/material/card';
 import { ConfirmationDialogComponent } from './componenents/confirmation-dialog/confirmation-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 
 
@@ -21,7 +23,9 @@ import { ConfirmationDialogComponent } from './componenents/confirmation-dialog/
   exports:[
     ErrorDialogComponent,
     CategoryPipe,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule,
+    MatFormFieldModule
   ]
 })
 export class SharedModule { }
