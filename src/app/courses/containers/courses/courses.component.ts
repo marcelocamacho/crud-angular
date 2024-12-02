@@ -16,7 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class CoursesComponent implements OnInit {
 
-  courses$: Observable<Course[]>;
+  courses$: Observable<Course[]> | null = null;
   //displayedColumns = ['_id','name','category'];
   displayedColumns = ['name','category','actions'];
 
@@ -27,14 +27,7 @@ export class CoursesComponent implements OnInit {
     private route: ActivatedRoute,
     private snackBar: MatSnackBar
   ) {
-    this.courses$ = this.courseService.list().pipe(
-      catchError(error =>{
-        console.log(error);
-        this.onError('Erro ao carregar os cursos');
-          return of([])
-        }
-    )
-    );
+    this.refresh();
   }
   ngOnInit(): void {
 
@@ -74,7 +67,8 @@ export class CoursesComponent implements OnInit {
           verticalPosition: 'top',
           horizontalPosition:'center'
         });
-      }
+      },
+      error => this.onError('Erro ao tentar remover curso')
     );
 
   }
